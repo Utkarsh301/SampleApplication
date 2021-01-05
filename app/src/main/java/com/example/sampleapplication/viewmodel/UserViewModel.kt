@@ -9,7 +9,7 @@ import com.example.sampleapplication.repository.UserRepository
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
 
-    lateinit var userRepository: UserRepository
+    var userRepository = UserRepository(application)
 
     fun getUsers(activity: Activity) : LiveData<ResponseModel> {
         return userRepository.getUsers(activity = activity)

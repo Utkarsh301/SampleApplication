@@ -5,24 +5,28 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class ResponseModel() : Parcelable {
+class ResponseModel(
     @SerializedName("code")
-    @Expose
-    private val code: Int? = null
+    @Expose val code: Int?,
 
     @SerializedName("meta")
-    @Expose
-    private val meta: MetaResponseModel? = null
+    @Expose val meta: MetaResponseModel?,
 
     @SerializedName("data")
-    @Expose
-    private val data: List<UserResponseModel>? = null
+    @Expose val data: List<UserResponseModel>? = null
 
-    constructor(parcel: Parcel) : this() {
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readParcelable(MetaResponseModel::class.java.classLoader),
+        parcel.createTypedArrayList(UserResponseModel)
+    ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel.writeValue(code)
+        parcel.writeParcelable(meta, flags)
+        parcel.writeTypedList(data)
     }
 
     override fun describeContents(): Int {

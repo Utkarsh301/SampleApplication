@@ -5,16 +5,15 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class MetaResponseModel() : Parcelable {
+class MetaResponseModel(
     @SerializedName("pagination")
-    @Expose
-    private val pagination: PaginationResponseModel? = null
-
-    constructor(parcel: Parcel) : this() {
+    @Expose val pagination: PaginationResponseModel?
+) : Parcelable {
+    constructor(parcel: Parcel) : this(parcel.readParcelable(PaginationResponseModel::class.java.classLoader)) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel.writeParcelable(pagination, flags)
     }
 
     override fun describeContents(): Int {

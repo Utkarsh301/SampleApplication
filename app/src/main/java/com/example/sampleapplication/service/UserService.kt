@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface UserService {
 
-    @GET("users")
+    @GET("public-api/users")
     fun getUsers() : Observable<ResponseModel>
 }

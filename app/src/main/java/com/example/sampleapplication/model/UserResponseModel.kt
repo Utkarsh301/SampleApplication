@@ -5,41 +5,48 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class UserResponseModel() : Parcelable {
+data class UserResponseModel(
 
     @SerializedName("id")
-    @Expose
-    private val id: Int? = null
+    @Expose var id: Int,
 
     @SerializedName("name")
-    @Expose
-    private val name: String? = null
+    @Expose val name: String?,
 
     @SerializedName("email")
-    @Expose
-    private val email: String? = null
+    @Expose val email: String?,
 
     @SerializedName("gender")
-    @Expose
-    private val gender: String? = null
+    @Expose val gender: String?,
 
     @SerializedName("status")
-    @Expose
-    private val status: String? = null
+    @Expose val status: String?,
 
     @SerializedName("created_at")
-    @Expose
-    private val createdAt: String? = null
+    @Expose val createdAt: String?,
 
     @SerializedName("updated_at")
-    @Expose
-    private val updatedAt: String? = null
-
-    constructor(parcel: Parcel) : this() {
+    @Expose val updatedAt: String?,
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeString(email)
+        parcel.writeString(gender)
+        parcel.writeString(status)
+        parcel.writeString(createdAt)
+        parcel.writeString(updatedAt)
     }
 
     override fun describeContents(): Int {
@@ -55,5 +62,4 @@ class UserResponseModel() : Parcelable {
             return arrayOfNulls(size)
         }
     }
-
 }

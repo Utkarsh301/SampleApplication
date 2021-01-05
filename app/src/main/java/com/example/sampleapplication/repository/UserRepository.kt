@@ -22,8 +22,8 @@ class UserRepository(var application: Application) {
 
     fun getUsers(activity: Activity): MutableLiveData<ResponseModel> {
 
-        var userService = RetrofitInstance.userService
-        var getUserObservable = userService.getUsers()
+        val userService = RetrofitInstance.userService
+        val getUserObservable = userService.getUsers()
         compositeDisposable.add(
             getUserObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

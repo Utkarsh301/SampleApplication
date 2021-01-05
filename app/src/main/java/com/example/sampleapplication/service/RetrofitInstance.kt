@@ -9,13 +9,13 @@ import java.util.concurrent.TimeUnit
 object RetrofitInstance {
 
     private var retrofit: Retrofit? = null
-    const val BASE_URL = "https://gorest.co.in/public-api/"
+    private const val BASE_URL = "https://gorest.co.in/"
 
     val userService: UserService
     get() {
-        val okHttpClient = OkHttpClient.Builder().connectTimeout(1200, TimeUnit.MILLISECONDS)
-            .readTimeout(1200, TimeUnit.MILLISECONDS)
-            .writeTimeout(1200, TimeUnit.MILLISECONDS)
+        val okHttpClient = OkHttpClient.Builder().connectTimeout(10000, TimeUnit.MILLISECONDS)
+            .readTimeout(10000, TimeUnit.MILLISECONDS)
+            .writeTimeout(10000, TimeUnit.MILLISECONDS)
             .build()
         if (retrofit == null) {
             retrofit = Retrofit.Builder()

@@ -5,28 +5,33 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class PaginationResponseModel() : Parcelable {
+class PaginationResponseModel(
     @SerializedName("total")
-    @Expose
-    private val total: Int? = null
+    @Expose val total: Int?,
 
     @SerializedName("pages")
-    @Expose
-    private val pages: Int? = null
+    @Expose val pages: Int?,
 
     @SerializedName("page")
-    @Expose
-    private val page: Int? = null
+    @Expose val page: Int?,
 
     @SerializedName("limit")
-    @Expose
-    private val limit: Int? = null
+    @Expose val limit: Int?
 
-    constructor(parcel: Parcel) : this() {
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int
+    ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel.writeValue(total)
+        parcel.writeValue(pages)
+        parcel.writeValue(page)
+        parcel.writeValue(limit)
     }
 
     override fun describeContents(): Int {
