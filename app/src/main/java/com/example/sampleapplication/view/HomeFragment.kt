@@ -1,11 +1,16 @@
 package com.example.sampleapplication.view
 
+import android.graphics.drawable.Animatable
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sampleapplication.R
+import com.example.sampleapplication.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,8 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var binding: FragmentHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,9 +40,16 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        val animation: AnimatedVectorDrawableCompat? = AnimatedVectorDrawableCompat.create(activity!!, R.drawable.animation)
+        binding.imageView.setImageDrawable(animation)
+        binding.imageView.setOnClickListener {
+            (binding.imageView.drawable as Animatable).start()
+        }
+        return binding.root
     }
 
     companion object {
