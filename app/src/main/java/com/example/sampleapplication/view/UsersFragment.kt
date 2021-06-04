@@ -61,16 +61,16 @@ class UsersFragment : Fragment() {
                 binding.usersRecyclerView.visibility = View.GONE
                 binding.loadingTextView.visibility = View.VISIBLE
             }
-            getUsers()
+            userViewModel.getUsers(requireActivity())
         }
         getUsers()
+        userViewModel.getUsers(requireActivity())
         return binding.root
     }
 
     private fun getUsers() {
         binding.loadingTextView.text = "Loading please wait..."
-        var getUsersLiveData = userViewModel.getUsers(activity!!)
-        getUsersLiveData.observe(activity!!,
+        userViewModel.usersLiveData.observe(activity!!,
             {
                 if (binding.swipeRefreshLayout.isRefreshing) {
                     binding.swipeRefreshLayout.isRefreshing = false
@@ -83,9 +83,10 @@ class UsersFragment : Fragment() {
                 } else {
                     binding.loadingTextView.text = "No Data Available"
                 }
-                getUsersLiveData.removeObservers(activity!!)
             })
     }
+
+
 
     companion object {
         /**
